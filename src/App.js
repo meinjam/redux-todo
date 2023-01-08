@@ -1,8 +1,9 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AddTodo from './components/AddTodo.Component';
 import Todos from './components/Todos.Component';
-import { addTodo, deleteTodo, updateTodo, updateTodoStatus } from './redux/slice/todoSlice';
+import { addTodo, deleteTodo, getLocalTodo, updateTodo, updateTodoStatus } from './redux/slice/todoSlice';
 
 const App = () => {
   const todos = useSelector((state) => state.todos.todo);
@@ -10,6 +11,13 @@ const App = () => {
 
   const [inputValue, setInputValue] = useState('');
   const [editid, setEditid] = useState('');
+
+  useEffect(() => {
+    const t = localStorage.getItem('todos');
+    if (t) {
+      dispatch(getLocalTodo(JSON.parse(t)));
+    }
+  }, []);
 
   const handleAddTodo = (e) => {
     e.preventDefault();
