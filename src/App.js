@@ -4,8 +4,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import AddTodo from './components/AddTodo.Component';
 import Todos from './components/Todos.Component';
 import { addTodo, deleteTodo, getLocalTodo, updateTodo, updateTodoStatus } from './redux/slice/todoSlice';
+import { useGetPostsQuery } from './redux/slice/apiSlice';
 
 const App = () => {
+  const { data: posts, isLoading, isSuccess, isError, error } = useGetPostsQuery();
+
+  console.log(posts);
+  // console.log(isLoading);
+  // console.log(isSuccess);
+  // console.log(isError);
+  // console.log(error);
+
   const todos = useSelector((state) => state.todos.todo);
   const dispatch = useDispatch();
 
